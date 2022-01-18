@@ -3,12 +3,13 @@ package com.lojavirtual.loja_virtual.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "imagem_produto")
 @SequenceGenerator(name = "seq_imagem_produto", sequenceName = "seq_imagem_produto", allocationSize = 1, initialValue = 1)
-public class ImagemProduto {
+public class ImagemProduto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,10 +17,10 @@ public class ImagemProduto {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_imagem_produto")
     private long id;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", nullable = false)
     private String imagemOriginal;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", nullable = false)
     private String imagemMiniatura;
 
     @ManyToOne

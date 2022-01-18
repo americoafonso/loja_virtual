@@ -3,12 +3,13 @@ package com.lojavirtual.loja_virtual.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "avaliacao_produto")
 @SequenceGenerator(name = "seq_avaliacao_produto", sequenceName = "seq_avaliacao_produto", allocationSize = 1, initialValue = 1)
-public class AvaliacaoProduto {
+public class AvaliacaoProduto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,8 +17,10 @@ public class AvaliacaoProduto {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_avaliacao_produto")
     private long id;
 
+    @Column(nullable = false)
     private Integer nota;
 
+    @Column(nullable = false)
     private String descricao;
 
     @ManyToOne(targetEntity = Pessoa.class) // ~> targetEntity porque pessoa e class abstrata

@@ -17,6 +17,7 @@ public class ItemVendaLoja implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_venda_loja")
     private long id;
 
+    @Column(nullable = false)
     private Double quantidade;
 
     @ManyToOne

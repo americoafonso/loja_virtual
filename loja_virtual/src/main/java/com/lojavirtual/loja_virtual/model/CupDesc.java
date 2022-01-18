@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @Entity
@@ -19,9 +20,14 @@ public class CupDesc implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cup_desc")
     private long id;
 
-    private String codDesc;
+    @Column(nullable = false)
+    private String codDescricao;
 
     private BigDecimal valorRealDesc;
 
     private BigDecimal valorPorcentDesc;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dataValidadeCupom;
 }
