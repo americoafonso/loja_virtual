@@ -11,6 +11,8 @@ import javax.persistence.*;
 @SequenceGenerator(name = "seq_acesso", sequenceName = "seq_acesso", allocationSize = 1, initialValue = 1)
 public class Acesso implements GrantedAuthority {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_acesso")
     private Long id;

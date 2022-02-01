@@ -1,4 +1,4 @@
-package repository;
+package com.lojavirtual.loja_virtual.repository;
 
 import com.lojavirtual.loja_virtual.model.Acesso;
 import org.springframework.data.jpa.repository.JpaRepository;
