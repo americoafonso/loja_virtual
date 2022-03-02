@@ -25,6 +25,7 @@ public class AcessoController {
     public ResponseEntity<Acesso> salvar(@RequestBody Acesso acesso) { /*Recebe o JSON e converte pra Objeto*/
         Acesso acessoSalvo = new Acesso();
         acessoSalvo = acessoService.salvar(acesso);
+
         return new ResponseEntity<Acesso>(acessoSalvo, HttpStatus.OK);
     }
 
