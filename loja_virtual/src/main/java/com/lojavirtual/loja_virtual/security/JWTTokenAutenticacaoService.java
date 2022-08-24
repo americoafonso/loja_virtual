@@ -3,14 +3,16 @@ package com.lojavirtual.loja_virtual.security;
 import com.lojavirtual.loja_virtual.AplicationContextLoad;
 import com.lojavirtual.loja_virtual.model.Usuario;
 import com.lojavirtual.loja_virtual.repository.UsuarioRepository;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.io.IOException;
 import java.util.Date;
 
 @Service
@@ -46,31 +48,40 @@ public class JWTTokenAutenticacaoService {
         response.getWriter().write("{\"Authorization\": \"" + token + "\"}");
     }
 
-    public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
+    public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getHeader(HEADER_STRING);
 
-        if (token != null) {
-            String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
+        try {
 
-            String user = Jwts.parser().
-                    setSigningKey(SECRET)
-                    .parseClaimsJws(tokenLimpo)
-                    .getBody().getSubject(); /*ADMIN ou Americo*/
+            if (token != null) {
+                String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
 
-            if (user != null) {
-                Usuario usuario = AplicationContextLoad
-                        .getApplicationContext()
-                        .getBean(UsuarioRepository.class).findUserByLogin(user);
+                String user = Jwts.parser().
+                        setSigningKey(SECRET)
+                        .parseClaimsJws(tokenLimpo)
+                        .getBody().getSubject(); /*ADMIN ou Americo*/
 
-                if (usuario != null) {
-                    return new UsernamePasswordAuthenticationToken(
-                            usuario.getLogin(),
-                            usuario.getSenha(),
-                            usuario.getAuthorities());
+                if (user != null) {
+                    Usuario usuario = AplicationContextLoad
+                            .getApplicationContext()
+                            .getBean(UsuarioRepository.class).findUserByLogin(user);
+
+                    if (usuario != null) {
+                        return new UsernamePasswordAuthenticationToken(
+                                usuario.getLogin(),
+                                usuario.getSenha(),
+                                usuario.getAuthorities());
+                    }
                 }
             }
+
+        } catch (SignatureException e) {
+            response.getWriter().write("Token está inválido.");
+        }catch (ExpiredJwtException e) {
+            response.getWriter().write("Token está expirado, efetue o login novamente.");
+        } finally {
+            liberacaoCors(response);
         }
-        liberacaoCors(response);
         return null;
     }
 

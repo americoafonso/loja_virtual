@@ -3,6 +3,7 @@ package com.lojavirtual.loja_virtual.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lojavirtual.loja_virtual.model.Usuario;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -50,4 +51,16 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
+
+        if (failed instanceof BadCredentialsException) {
+            response.getWriter().write("User e senha nao encontrado");
+        } else {
+            response.getWriter().write("Falha ao logar: " + failed.getMessage());
+        }
+    }
+
 }

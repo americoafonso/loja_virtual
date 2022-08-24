@@ -1,20 +1,16 @@
 package com.lojavirtual.loja_virtual;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lojavirtual.loja_virtual.controller.AcessoController;
 import com.lojavirtual.loja_virtual.model.Acesso;
 import com.lojavirtual.loja_virtual.repository.AcessoRepository;
-import com.lojavirtual.loja_virtual.service.AcessoService;
 import junit.framework.TestCase;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
