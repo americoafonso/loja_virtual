@@ -30,7 +30,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 	private WebApplicationContext wac;
 
 	@Test
-	public void testRestApiCadastroAcesso() throws Exception {
+	void testRestApiCadastroAcesso() throws Exception {
 		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
 		MockMvc mockMvc = builder.build();
 
@@ -54,12 +54,12 @@ public class LojaVirtualApplicationTests extends TestCase {
 	}
 
 	@Test
-	public void testRestApiDeleteAcesso() throws Exception {
+	void testRestApiDeleteAcesso() throws Exception {
 		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
 		MockMvc mockMvc = builder.build();
 
 		Acesso acesso = new Acesso();
-		acesso.setDescricao("ROLE_TESTE_DELEETE");
+		acesso.setDescricao("ROLE_TESTE_DELETE");
 
 		acesso = acessoRepository.save(acesso);
 
@@ -77,7 +77,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 	}
 
 	@Test
-	public void testCadastraAcesso() {
+	void testCadastraAcesso() {
 		Acesso acesso = new Acesso();
 		acesso.setDescricao("ROLE_ADMIN");
 		acesso = acessoController.salvar(acesso).getBody();
