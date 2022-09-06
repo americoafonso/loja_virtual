@@ -22,6 +22,17 @@ import java.util.List;
 @ControllerAdvice
 public class ControleExcecoes extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(ExcecaoApi.class)
+    public ResponseEntity<Object> handleExceptionCustom(ExcecaoApi ex) {
+
+        ObjetoErroDTO objetoErroDTO = new ObjetoErroDTO();
+        objetoErroDTO.setError(ex.getMessage());
+        objetoErroDTO.setCode(HttpStatus.OK.toString());
+
+        return new ResponseEntity<Object>(objetoErroDTO, HttpStatus.OK);
+    }
+
+
     @ExceptionHandler({Exception.class, RuntimeException.class, Throwable.class})
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
@@ -41,7 +52,7 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
             msg = ex.getMessage();
         }
         objetoErroDTO.setError(msg);
-        objetoErroDTO.setCode(status.value() + "==> " + status.getReasonPhrase());
+        objetoErroDTO.setCode(status.value() + " ~> " + status.getReasonPhrase());
 
         return new ResponseEntity<>(objetoErroDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }

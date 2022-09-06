@@ -77,7 +77,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 	}
 
 	@Test
-	void testCadastraAcesso() {
+	void testCadastraAcesso() throws ExcecaoApi {
 		Acesso acesso = new Acesso();
 		acesso.setDescricao("ROLE_ADMIN");
 		acesso = acessoController.salvar(acesso).getBody();

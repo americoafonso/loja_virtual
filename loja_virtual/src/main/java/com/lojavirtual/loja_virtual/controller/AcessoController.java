@@ -1,5 +1,6 @@
 package com.lojavirtual.loja_virtual.controller;
 
+import com.lojavirtual.loja_virtual.ExcecaoApi;
 import com.lojavirtual.loja_virtual.model.Acesso;
 import com.lojavirtual.loja_virtual.repository.AcessoRepository;
 import com.lojavirtual.loja_virtual.service.AcessoService;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RestController
@@ -23,9 +26,17 @@ public class AcessoController {
 
     @ResponseBody //~>para dar o retorno da api
     @PostMapping(value = "**/salvarAcesso") /*Mapeando a url para receber JSON*/
-    public ResponseEntity<Acesso> salvar(@RequestBody Acesso acesso) { /*Recebe o JSON e converte pra Objeto*/
-        Acesso acessoSalvo = new Acesso();
-        acessoSalvo = acessoService.salvar(acesso);
+    public ResponseEntity<Acesso> salvar(@RequestBody Acesso acesso) throws ExcecaoApi { /*Recebe o JSON e converte pra Objeto*/
+
+        if (acesso.getId() == null) {
+            List<Acesso> acessos = acessoRepository.buscarAcessoDesc(acesso.getDescricao().toUpperCase());
+
+            if (!acessos.isEmpty())
+                throw new ExcecaoApi("Já existe acesso com a descrição: " + acesso.getDescricao());
+
+        }
+
+        Acesso acessoSalvo = acessoService.salvar(acesso);
 
         return new ResponseEntity<Acesso>(acessoSalvo, HttpStatus.OK);
     }
@@ -49,10 +60,21 @@ public class AcessoController {
 
     @ResponseBody
     @GetMapping(value = "**/obterAcesso/{id}")
-    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) {
-        Acesso acesso = acessoRepository.findById(id).get();
+    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) throws ExcecaoApi {
+        Acesso acesso = acessoRepository.findById(id).orElse(null);
+
+        if (acesso == null)
+            throw new ExcecaoApi("Não encontrou acesso com código: " + id);
 
         return new ResponseEntity<>(acesso, HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "**/buscarPorDesc/{desc}")
+    public ResponseEntity<Acesso> buscarPorDesc(@PathVariable("desc") String desc) {
+        List<Acesso> acesso = acessoRepository.buscarAcessoDesc(desc);
+
+        return new ResponseEntity(acesso, HttpStatus.OK);
     }
 
 
