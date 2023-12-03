@@ -8,17 +8,17 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "vd_cp_loja_virt")
-@SequenceGenerator(name = "seq_vd_cp_loja_virt", sequenceName = "seq_vd_cp_loja_virt", allocationSize = 1, initialValue = 1)
+@Table(name = "venda_compra_loja_virtual")
+@SequenceGenerator(name = "seq_venda_compra_loja_virtual", sequenceName = "seq_venda_compra_loja_virtual", allocationSize = 1, initialValue = 1)
 public class VendaCompraLojaVirtual {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_vd_cp_loja_virt")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_venda_compra_loja_virtual")
     private long id;
 
-    @ManyToOne(targetEntity = Pessoa.class) // ~> targetEntity porque pessoa e class abstrata
+    @ManyToOne(targetEntity = Pessoa.class) // ~> targetEntity porque pessoa é uma class abstrata
     @JoinColumn(name = "pessoa_id", nullable = false,
             foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
@@ -49,9 +49,9 @@ public class VendaCompraLojaVirtual {
     private NotaFiscalVenda notaFiscalVenda;
 
     @ManyToOne
-    @JoinColumn(name = "cup_desc_id",
-            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cup_desc_fk"))
-    private CupDesc cupDesc;
+    @JoinColumn(name = "cupom_desconto_id",
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cupom_desconto_fk"))
+    private CupomDesconto cupomDesconto;
 
     @Column(nullable = false)
     private BigDecimal valorFrete;

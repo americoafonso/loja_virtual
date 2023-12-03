@@ -41,10 +41,12 @@ public class ContaPagar implements Serializable {
     private Date dataPagamento;
 
     @ManyToOne(targetEntity = Pessoa.class)
-    @JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+    @JoinColumn(name = "pessoa_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
     private Pessoa pessoa;
 
     @ManyToOne(targetEntity = Pessoa.class)
-    @JoinColumn(name = "pessoa_forn_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_forn_fk"))
+    @JoinColumn(name = "pessoa_forn_id", nullable = false,
+            foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_forn_fk"))
     private Pessoa pessoa_fornecedor;
 }

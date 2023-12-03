@@ -19,5 +19,5 @@ public class MarcaProduto implements Serializable {
     private long id;
 
     @Column(name = "nome_descricao", nullable = false)
-    private String nomeDesc;
+    private String nomeDescricao;
 }

@@ -31,7 +31,7 @@ public class Produto implements Serializable {
     @Column(columnDefinition = "text", length = 2000, nullable = false)
     private String descricao;
 
-    /** TODO Nota item produto ASSOCIAR**/
+    /** TODO Nota_Item_Produto ASSOCIAR **/
 
     @Column(nullable = false)
     private Double peso;
@@ -49,13 +49,13 @@ public class Produto implements Serializable {
     private BigDecimal valorVenda = BigDecimal.ZERO;
 
     @Column(nullable = false)
-    private Integer QtdadeEstoque = 0;
+    private Integer quantidadeEstoque = 0;
 
-    private Integer QtdadeAlertaEstoque = 0;
+    private Integer quantidadeAlertaEstoque = 0;
 
     private String linkYoutube;
 
-    private Boolean alertaQtdadeEstoque = Boolean.FALSE;
+    private Boolean alertaQuantidadeEstoque = Boolean.FALSE;
 
-    private Integer qtdadeClique = 0;
+    private Integer quantidadeClique = 0;
 }
