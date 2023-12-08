@@ -43,7 +43,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-
         try {
             new JWTTokenAutenticacaoService().addAthentication(response, authResult.getName());
 
@@ -55,9 +54,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
-
         if (failed instanceof BadCredentialsException) {
-            response.getWriter().write("User e senha nao encontrado");
+            response.getWriter().write("User e senha não encontrado");
         } else {
             response.getWriter().write("Falha ao logar: " + failed.getMessage());
         }

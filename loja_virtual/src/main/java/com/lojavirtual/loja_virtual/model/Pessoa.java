@@ -29,7 +29,7 @@ public abstract class Pessoa implements Serializable {
     private String telefone;
 
     @Column
-    private String tipoPessoa;
+    private String tipoPessoa; // Cliente, Usuario, Secretario, Funcionario
 
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -35,7 +35,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 		MockMvc mockMvc = builder.build();
 
 		Acesso acesso = new Acesso();
-		acesso.setDescricao("ROLE_COMPRADOR");
+		acesso.setDescricao("ROLE_VENDEDOR");
 
 		ObjectMapper objectMapper = new ObjectMapper();
 
